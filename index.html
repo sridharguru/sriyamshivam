@@ -76,7 +76,7 @@ nav.scrolled{border-color:var(--border)}
 .video-placeholder-icon svg{width:24px;height:24px;fill:var(--gold);margin-left:4px}
 .video-placeholder-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#4a3f30}
 .video-placeholder-url{font-family:'DM Mono',monospace;font-size:10px;color:#2e2b24;margin-top:4px;letter-spacing:.08em}
-.loom-embed{width:100%;height:100%;position:absolute;inset:0}
+.loom-embed{width:100%;height:100%;position:absolute;inset:0;border:0}
 
 .qr-wrapper{display:flex;flex-direction:column;align-items:center;gap:20px}
 .qr-box{background:var(--surface);padding:24px;border-radius:6px;border:1px solid #2e2b24}
@@ -229,7 +229,106 @@ footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr
 .fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
 .fade-up.visible{opacity:1;transform:none}
 
-@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}30%{transform:translate(3%,-1%)}50%{transform:translate(-1%,4%)}70%{transform:translate(2%,1%)}90%{transform:translate(-3%,2%)}}</style>
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}30%{transform:translate(3%,-1%)}50%{transform:translate(-1%,4%)}70%{transform:translate(2%,1%)}90%{transform:translate(-3%,2%)}}
+
+/* ======================== RESPONSIVE ======================== */
+
+/* --- Tablet / small laptop --- */
+@media (max-width:960px){
+  nav{padding:16px 32px}
+  .hero{padding:104px 32px 48px}
+  .hero-content{grid-template-columns:1fr;gap:48px}
+  .hero-right{flex-direction:row;flex-wrap:wrap}
+  .hero-right .stat-card{flex:1 1 200px}
+  section,.video-section,.metrics-section{padding:72px 32px}
+  .kpi-section{padding:48px 32px}
+  .problem-grid{grid-template-columns:1fr 1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .t-detail-inner{grid-template-columns:1fr 1fr}
+  footer{padding:48px 32px}
+}
+
+/* --- Hide the desktop nav links on narrower screens (no room) --- */
+@media (max-width:760px){
+  .nav-links{display:none}
+}
+
+/* --- Large phone / small tablet --- */
+@media (max-width:720px){
+  nav{padding:14px 20px}
+  .hero{padding:96px 20px 40px;min-height:auto}
+  .hero-right{flex-direction:column}
+  .hero-desc{max-width:none}
+  section,.video-section,.metrics-section,.kpi-section{padding:56px 20px}
+
+  /* Video intro: stack and keep frame responsive */
+  .video-left p,.section-intro{max-width:none}
+
+  /* Multi-column grids collapse to single column */
+  .problem-grid,
+  .persona-grid,
+  .persona-body,
+  .design-grid,
+  .outcome-grid,
+  .kpi-grid{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+
+  /* Timeline: drop the fixed 200px rail, go full width */
+  .timeline::before{left:6px}
+  .t-entry{grid-template-columns:1fr}
+  .t-left{text-align:left;padding:32px 0 0 28px}
+  .t-dot{left:0;top:38px}
+  .t-right{padding:16px 0 32px 28px;border-left:none}
+  .t-detail-inner{grid-template-columns:1fr;gap:20px}
+  /* Detail blocks stack vertically on mobile, so the 800px desktop cap clips
+     longer entries (e.g. Research). Raise it so nothing gets cut off. */
+  .t-entry.open .t-detail{max-height:2000px}
+
+  /* Challenges: stack number above content */
+  .challenge-item{grid-template-columns:1fr;gap:12px}
+  .challenge-num{font-size:36px}
+
+  /* Research docs: left context + right FigJam card stack vertically */
+  .research-docs-section{padding:56px 20px !important}
+  .research-docs-grid{grid-template-columns:1fr !important;gap:40px !important}
+
+  /* KPI panel + competitor landscape stack into one column */
+  .kpi-comp-grid{grid-template-columns:1fr !important}
+  /* The KPI metrics inside also go single column */
+  .kpi-comp-grid .kpi-grid{grid-template-columns:1fr !important}
+
+  /* Competitor table: shrink product-name column + gaps so 4 cols fit */
+  .comp-table>div{grid-template-columns:90px 1fr 1fr 1fr !important;gap:6px !important}
+
+  /* Footer stacks and left-aligns */
+  footer{grid-template-columns:1fr;gap:24px}
+  .footer-right{text-align:left}
+  .footer-name{font-size:32px}
+
+  .outcome-quote{font-size:clamp(20px,5vw,28px);padding-left:20px}
+}
+
+/* --- Small phone --- */
+@media (max-width:480px){
+  nav{padding:12px 16px}
+  .hero{padding:88px 16px 32px}
+  section,.video-section,.metrics-section,.kpi-section{padding:48px 16px}
+  .metrics-grid{grid-template-columns:1fr}
+  .hero-tags{gap:6px}
+  .stat-card{padding:22px 24px}
+  .stat-number{font-size:44px}
+  .problem-card,.design-card{padding:24px}
+  .nav-logo{font-size:18px}
+
+  /* Competitor table: tightest layout for small phones */
+  .comp-table>div{grid-template-columns:74px 1fr 1fr 1fr !important;gap:4px !important}
+  .comp-table>div>span:first-child{font-size:9px !important}
+  .research-docs-section,.kpi-section{padding-left:16px;padding-right:16px}
+}
+
+/* Make any embedded iframe (video) never overflow its container */
+iframe{max-width:100%}
+</style>
 </head>
 <body>
 <div id="progress"></div>
@@ -301,12 +400,7 @@ footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr
     <h2>Hear it from <em>the designer</em></h2>
     <p>A 60-second walkthrough of what Sriyam is, why it exists, and what problem it solves — straight from the person who lived through the problem first.</p>
     <div class="video-frame" id="videoFrame">
-      <!-- Replace src below with your actual Loom embed URL -->
-      <div class="video-placeholder-icon">
-        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </div>
-      <p class="video-placeholder-text">Quick Story</p>
-      <p class="video-placeholder-url">https://drive.google.com/file/d/1wCTqEmIICoblvK5GkS0vTwt96RJXWKE8/view?usp=drive_link</p>
+      <iframe class="loom-embed" src="https://drive.google.com/file/d/1wCTqEmIICoblvK5GkS0vTwt96RJXWKE8/preview" allow="autoplay" allowfullscreen title="Sriyam — introduction by the designer"></iframe>
     </div>
   </div>
 
@@ -603,8 +697,8 @@ footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr
 </section>
 
 <!-- ======================== RESEARCH DOCS ======================== -->
-<section style="background:var(--ink);padding:100px 60px" class="fade-up">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+<section style="background:var(--ink);padding:100px 60px" class="fade-up research-docs-section">
+  <div class="research-docs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
 
     <!-- LEFT: Context -->
     <div>
@@ -746,7 +840,7 @@ footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr
 
 <!-- KPI BARS -->
 <section class="kpi-section fade-up">
-  <div class="metrics-grid" style="grid-template-columns:1fr 1fr;margin-top:0;background:#1a1611">
+  <div class="metrics-grid kpi-comp-grid" style="grid-template-columns:1fr 1fr;margin-top:0;background:#1a1611">
     <div class="metric-cell" style="background:#0e0d0b">
       <p class="section-eyebrow" style="color:#e8c97a;border-color:rgba(232,201,122,.2);margin-bottom:12px">● Product KPIs</p>
       <p style="font-size:12px;color:#4a3f30;line-height:1.6;margin-bottom:24px;font-family:'Outfit',sans-serif">These are our post-launch targets — not current numbers. Sriyam hasn't launched yet. These are the benchmarks we're designing toward, based on comparable wellness apps in the Indian market.</p>
@@ -787,7 +881,7 @@ footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr
     </div>
     <div class="metric-cell" style="background:#0e0d0b">
       <p class="section-eyebrow" style="color:#e8c97a;border-color:rgba(232,201,122,.2);margin-bottom:24px">● Competitor Landscape</p>
-      <div style="display:flex;flex-direction:column;gap:20px">
+      <div class="comp-table" style="display:flex;flex-direction:column;gap:20px">
         <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#2e2b24;padding-bottom:12px;border-bottom:1px solid #1a1611">
           <span>Product</span><span>Discovery</span><span>Emotional</span><span>Ritual</span>
         </div>
