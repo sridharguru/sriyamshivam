@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sriyam — Case Study by I</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf7f2;
+  --bg2:#f3ede3;
+  --surface:#fff;
+  --ink:#1a1611;
+  --ink2:#4a3f30;
+  --muted:#9c8c78;
+  --border:#e2d9cc;
+  --gold:#c4882a;
+  --gold-light:#e8c97a;
+  --gold-pale:#fdf3e0;
+  --rust:#b85c38;
+  --sage:#6b8f71;
+  --stone:#8c7b6b;
+  --red-temple:#c0392b;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* PROGRESS */
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--rust));width:0%;z-index:999;transition:width .1s linear}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 60px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,0.92);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+nav.scrolled{border-color:var(--border)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;letter-spacing:0.05em;color:var(--ink)}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+
+/* ======================== HERO ======================== */
+.hero{min-height:100vh;display:grid;grid-template-rows:1fr auto;padding:120px 60px 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg svg{width:100%;height:100%;opacity:.06}
+.hero-content{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-left{}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(56px,7vw,100px);font-weight:700;line-height:.9;letter-spacing:-.02em;color:var(--ink);margin-bottom:8px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,26px);font-weight:300;font-style:italic;color:var(--muted);margin-bottom:32px;line-height:1.4}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.hero-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);color:var(--stone);border-radius:2px;background:var(--surface)}
+.hero-desc{font-size:15px;color:var(--ink2);line-height:1.75;max-width:480px}
+
+.hero-right{display:flex;flex-direction:column;gap:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:28px 32px;border-radius:4px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--node-color,var(--gold))}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;line-height:1;color:var(--node-color,var(--gold));margin-bottom:4px}
+.stat-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.stat-sub{font-size:13px;color:var(--ink2);margin-top:6px}
+
+.hero-scroll{position:relative;z-index:1;display:flex;align-items:center;gap:12px;margin-top:40px}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollpulse 2s ease-in-out infinite}
+@keyframes scrollpulse{0%,100%{opacity:.3}50%{opacity:1}}
+.scroll-text{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* ======================== VIDEO SECTION ======================== */
+.video-section{background:var(--ink);padding:100px 60px;}
+.video-left .section-eyebrow{color:var(--gold-light);border-color:rgba(232,201,122,.3)}
+.video-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:700;color:#f0ebe0;line-height:1.05;margin-bottom:16px}
+.video-left h2 em{font-style:italic;color:var(--gold-light)}
+.video-left p{font-size:14px;color:#9c8c78;line-height:1.75;max-width:420px;margin-bottom:32px}
+.video-frame{background:#0e0d0b;border:1px solid #2e2b24;border-radius:6px;overflow:hidden;aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+.video-placeholder-icon{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center}
+.video-placeholder-icon svg{width:24px;height:24px;fill:var(--gold);margin-left:4px}
+.video-placeholder-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#4a3f30}
+.video-placeholder-url{font-family:'DM Mono',monospace;font-size:10px;color:#2e2b24;margin-top:4px;letter-spacing:.08em}
+.loom-embed{width:100%;height:100%;position:absolute;inset:0}
+
+.qr-wrapper{display:flex;flex-direction:column;align-items:center;gap:20px}
+.qr-box{background:var(--surface);padding:24px;border-radius:6px;border:1px solid #2e2b24}
+.qrcode{width:160px;height:160px}
+.qr-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#4a3f30;text-align:center}
+.qr-url{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold-light);text-align:center;max-width:200px;word-break:break-all;line-height:1.5}
+
+/* ======================== SECTION SHARED ======================== */
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(196,136,42,.25);display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:2px;margin-bottom:20px}
+section{padding:100px 60px}
+section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:16px;color:var(--ink)}
+section h2 em{font-style:italic;color:var(--gold)}
+.section-intro{font-size:15px;color:var(--ink2);line-height:1.75;max-width:640px;margin-bottom:56px}
+
+/* ======================== TIMELINE ======================== */
+.timeline-section{background:var(--bg)}
+.timeline{position:relative;padding-left:0}
+.timeline::before{content:'';position:absolute;left:200px;top:0;bottom:0;width:1px;background:var(--border)}
+
+.t-entry{display:grid;grid-template-columns:200px 1fr;position:relative;cursor:pointer}
+.t-entry+.t-entry{border-top:1px solid var(--border)}
+
+.t-left{padding:40px 40px 40px 0;text-align:right}
+.t-dot{position:absolute;left:193px;top:44px;width:14px;height:14px;border-radius:50%;background:var(--node-color,var(--gold));border:3px solid var(--bg);z-index:2;transition:transform .3s,box-shadow .3s}
+.t-entry:hover .t-dot,.t-entry.open .t-dot{transform:scale(1.4);box-shadow:0 0 0 5px color-mix(in srgb,var(--node-color) 15%,transparent)}
+.t-phase{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--node-color,var(--gold));margin-bottom:6px}
+.t-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted)}
+.t-num{font-family:'Cormorant Garamond',serif;font-size:11px;font-style:italic;color:var(--border);margin-bottom:4px}
+
+.t-right{padding:40px 0 40px 56px;border-left:1px solid transparent}
+.t-tag{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--node-color);border:1px solid color-mix(in srgb,var(--node-color) 30%,transparent);background:color-mix(in srgb,var(--node-color) 5%,transparent);padding:4px 10px;border-radius:2px;margin-bottom:12px}
+.t-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.8vw,38px);font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:12px;transition:color .2s}
+.t-entry:hover .t-title{color:var(--node-color)}
+.t-summary{font-size:14px;color:var(--ink2);line-height:1.75;max-width:600px}
+
+.t-expand{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--border);margin-top:14px;display:flex;align-items:center;gap:8px;transition:color .2s}
+.t-entry:hover .t-expand{color:var(--node-color)}
+.t-arrow{transition:transform .3s;font-size:14px}
+.t-entry.open .t-arrow{transform:rotate(90deg)}
+
+.t-detail{max-height:0;overflow:hidden;opacity:0;transition:max-height .55s cubic-bezier(.4,0,.2,1),opacity .4s ease}
+.t-entry.open .t-detail{max-height:800px;opacity:1}
+.t-detail-inner{margin-top:24px;padding-top:24px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.d-block h4{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--node-color);margin-bottom:10px}
+.d-block p,.d-block li{font-size:13px;color:var(--ink2);line-height:1.7}
+.d-block ul{list-style:none;padding:0}
+.d-block ul li{padding-left:16px;position:relative;margin-bottom:5px}
+.d-block ul li::before{content:'—';position:absolute;left:0;color:var(--node-color);font-size:10px;top:2px}
+
+/* ======================== PROBLEM SECTION ======================== */
+.problem-section{background:var(--bg2)}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.problem-card{background:var(--surface);border:1px solid var(--border);padding:32px;border-radius:4px;position:relative;overflow:hidden}
+.problem-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--card-color,var(--gold))}
+.problem-icon{font-size:32px;margin-bottom:16px}
+.problem-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.problem-card p{font-size:13px;color:var(--ink2);line-height:1.7}
+
+/* ======================== USER PERSONA ======================== */
+.persona-section{background:var(--surface)}
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px}
+.persona-card{border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.persona-header{background:var(--gold-pale);padding:28px 32px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:20px}
+.persona-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--rust));display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.persona-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink)}
+.persona-role{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.persona-body{padding:28px 32px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.persona-section-block h4{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.persona-section-block ul{list-style:none;padding:0}
+.persona-section-block li{font-size:13px;color:var(--ink2);line-height:1.7;padding-left:14px;position:relative;margin-bottom:4px}
+.persona-section-block li::before{content:'·';position:absolute;left:0;color:var(--gold);font-size:16px;top:-2px}
+
+/* ======================== FLOWCHART ======================== */
+.flow-section{background:var(--bg)}
+.flow-container{margin-top:48px;overflow-x:auto;padding-bottom:16px}
+.flow{display:flex;align-items:flex-start;gap:0;min-width:900px}
+.flow-col{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:160px}
+.flow-connector{display:flex;align-items:center;padding-top:20px;flex-shrink:0}
+.flow-connector svg{width:32px;height:20px}
+.flow-node{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:16px 12px;text-align:center;width:140px;position:relative}
+.flow-node.start{background:var(--gold-pale);border-color:var(--gold)}
+.flow-node.decision{background:#f5e8f0;border-color:#b87ab8;transform:rotate(0deg)}
+.flow-node.end-node{background:#e8f5e8;border-color:var(--sage)}
+.flow-node h5{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:4px}
+.flow-node p{font-size:11px;color:var(--muted);line-height:1.4}
+.flow-node-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+
+/* ======================== METRICS ======================== */
+.metrics-section{background:var(--ink);padding:100px 60px}
+.metrics-section .section-eyebrow{color:var(--gold-light);border-color:rgba(232,201,122,.3)}
+.metrics-section h2{color:#f0ebe0}
+.metrics-section h2 em{color:var(--gold-light)}
+.metrics-section .section-intro{color:#7a6f60}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid #2e2b24;border-radius:6px;overflow:hidden;margin-top:48px}
+.metric-cell{background:var(--ink);padding:40px 32px;text-align:center}
+.metric-num{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5vw,64px);font-weight:700;color:var(--gold-light);line-height:1;margin-bottom:8px}
+.metric-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#4a3f30;margin-bottom:6px}
+.metric-desc{font-size:12px;color:#a6a4a0}
+
+/* KPI BARS */
+.kpi-section{background:#0e0d0b;padding:60px}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+.kpi-item{}
+.kpi-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.kpi-name{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7a6f60}
+.kpi-value{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--kpi-color,var(--gold-light))}
+.kpi-bar-bg{height:4px;background:#2e2b24;border-radius:2px;overflow:hidden}
+.kpi-bar-fill{height:100%;background:var(--kpi-color,var(--gold-light));border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+.kpi-sub{font-size:14px;color:#938f89;margin-top:6px}
+
+/* ======================== DESIGN DECISIONS ======================== */
+.design-section{background:var(--bg2)}
+.design-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px}
+.design-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:32px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.design-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.08)}
+.design-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--card-accent,var(--gold))}
+.design-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--border);position:absolute;top:20px;right:24px;line-height:1}
+.design-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:8px;max-width:260px}
+.design-card .why{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.design-card p{font-size:13px;color:var(--ink2);line-height:1.7}
+
+/* ======================== CHALLENGES ======================== */
+.challenges-section{background:var(--surface)}
+.challenge-list{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.challenge-item{display:grid;grid-template-columns:80px 1fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--border)}
+.challenge-item:last-child{border-bottom:none}
+.challenge-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;font-style:italic;color:var(--border);line-height:1}
+.challenge-content h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.challenge-content .pivot{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:8px}
+.challenge-content p{font-size:14px;color:var(--ink2);line-height:1.7;max-width:680px}
+
+/* ======================== OUTCOME ======================== */
+.outcome-section{background:var(--gold-pale)}
+.outcome-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,40px);font-style:italic;font-weight:400;color:var(--ink);line-height:1.3;max-width:760px;margin:40px 0;padding-left:32px;border-left:3px solid var(--gold)}
+.outcome-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:48px}
+.outcome-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:28px 24px;text-align:center}
+.outcome-icon{font-size:28px;margin-bottom:12px}
+.outcome-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.outcome-card p{font-size:13px;color:var(--ink2);line-height:1.6}
+
+/* ======================== FOOTER ======================== */
+footer{background:var(--ink);padding:60px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px;border-top:1px solid #2e2b24}
+.footer-name{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:#f0ebe0}
+.footer-name span{color:var(--gold-light);font-style:italic}
+.footer-role{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#4a3f30;margin-top:8px}
+.footer-right{text-align:right}
+.footer-right p{font-family:'DM Mono',monospace;font-size:10px;color:#aeaba5;letter-spacing:.08em;line-height:1.8}
+
+/* ======================== ANIMATIONS ======================== */
+.fade-up{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}30%{transform:translate(3%,-1%)}50%{transform:translate(-1%,4%)}70%{transform:translate(2%,1%)}90%{transform:translate(-3%,2%)}}</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">sri<span>yam</span></div>
+  <div class="nav-links">
+    <a href="#story">Story</a>
+    <a href="#problem">Problem</a>
+    <a href="#flow">Flow</a>
+    <a href="#metrics">Metrics</a>
+    <a href="#design">Design</a>
+    <a href="#outcome">Outcome</a>
+  </div>
+</nav>
+
+<!-- ======================== HERO ======================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="mandala" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="60" cy="60" r="50" fill="none" stroke="#c4882a" stroke-width="0.5"/><circle cx="60" cy="60" r="35" fill="none" stroke="#c4882a" stroke-width="0.5"/><circle cx="60" cy="60" r="20" fill="none" stroke="#c4882a" stroke-width="0.5"/><line x1="10" y1="60" x2="110" y2="60" stroke="#c4882a" stroke-width="0.3"/><line x1="60" y1="10" x2="60" y2="110" stroke="#c4882a" stroke-width="0.3"/><line x1="24" y1="24" x2="96" y2="96" stroke="#c4882a" stroke-width="0.3"/><line x1="96" y1="24" x2="24" y2="96" stroke="#c4882a" stroke-width="0.3"/></pattern></defs>
+      <rect width="1200" height="800" fill="url(#mandala)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-left fade-up">
+      <p class="hero-eyebrow">Portfolio Case Study · UX / Product Design</p>
+      <h1 class="hero-title">Sri<em>yam</em></h1>
+      <p class="hero-subtitle">Where ancient temples meet modern healing</p>
+      <div class="hero-tags">
+        <span class="hero-tag">UX Research</span>
+        <span class="hero-tag">Product Design</span>
+        <span class="hero-tag">Mobile App</span>
+        <span class="hero-tag">Cultural Tech</span>
+        <span class="hero-tag">Spiritual Wellness</span>
+        <span class="hero-tag">AI</span>
+      </div>
+      <p class="hero-desc">A personal journey that began at a temple in Kanchipuram during a difficult season of life — and became a product that bridges spiritual heritage with daily mental wellbeing.</p>
+    </div>
+    <div class="hero-right fade-up" style="animation-delay:.2s">
+      <div class="stat-card" style="--node-color:#c4882a">
+        <div class="stat-number">2025</div>
+        <div class="stat-label">Year Founded</div>
+        <div class="stat-sub">Born from personal need, not a brief</div>
+      </div>
+      <div class="stat-card" style="--node-color:#b85c38">
+        <div class="stat-number">380+</div>
+        <div class="stat-label">Hidden Temples Undocumented</div>
+        <div class="stat-sub">Thousands of stories waiting to be told</div>
+      </div>
+      <div class="stat-card" style="--node-color:#6b8f71">
+        <div class="stat-number">1</div>
+        <div class="stat-label">Designer. Solo founder.</div>
+        <div class="stat-sub">Every decision documented here</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll to read the story</span>
+  </div>
+</section>
+
+<!-- ======================== VIDEO SECTION ======================== -->
+<section class="video-section" id="video">
+  <div class="video-left fade-up">
+    <p class="section-eyebrow">● Introduction</p>
+    <h2>Hear it from <em>the designer</em></h2>
+    <p>A 60-second walkthrough of what Sriyam is, why it exists, and what problem it solves — straight from the person who lived through the problem first.</p>
+    <div class="video-frame" id="videoFrame">
+      <!-- Replace src below with your actual Loom embed URL -->
+      <div class="video-placeholder-icon">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <p class="video-placeholder-text">Paste your Loom embed URL here</p>
+      <p class="video-placeholder-url">loom.com/embed/your-video-id</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ======================== ORIGIN STORY ======================== -->
+<section id="story" class="timeline-section">
+  <div class="fade-up">
+    <p class="section-eyebrow">● The Story</p>
+    <h2>How <em>Sriyam</em> began</h2>
+    <p class="section-intro">Every great product has a human story behind it. This one started not in a studio, but in a season of personal difficulty — and in the quiet presence of a 1,000-year-old temple.</p>
+  </div>
+
+  <div class="timeline">
+
+    <!-- 01 ORIGIN -->
+    <div class="t-entry" style="--node-color:#c4882a" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">01</p>
+        <p class="t-phase">Origin</p>
+        <p class="t-date">Early 2025</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● The Spark</span>
+        <h2 class="t-title">A family crisis. A temple. A realisation.</h2>
+        <p class="t-summary">In 2025, I was navigating serious personal family problems and needed something — not therapy, not productivity apps — just a quiet daily anchor for the mind. A spontaneous trip to Kanchipuram changed everything. The temples there weren't just architecture. They were full of life resonance — stories of discipline, surrender, patience, and faith that mapped perfectly onto modern struggles.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>The Emotional Need</h4>
+              <ul>
+                <li>Needed daily mental grounding</li>
+                <li>Existing apps felt clinical, not cultural</li>
+                <li>Wanted something rooted in identity</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>What Kanchipuram Showed Me</h4>
+              <ul>
+                <li>Every temple story mirrors a life lesson</li>
+                <li>Local knowledge was oral, scattered, dying</li>
+                <li>Google Maps showed locations, not meaning</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>The Designer's Eye</h4>
+              <p>Standing in that courtyard, I saw a gap: emotional, cultural, and product-shaped. Not just a travel app. A daily companion with ancient wisdom at its core.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 RESEARCH -->
+    <div class="t-entry" style="--node-color:#b87a20" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">02</p>
+        <p class="t-phase">Research</p>
+        <p class="t-date">Mid 2025</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● Discovery</span>
+        <h2 class="t-title">Travelling cities. Documenting hidden temples.</h2>
+        <p class="t-summary">Before any wireframe was drawn, I travelled to cities across Tamil Nadu documenting hidden temples that don't appear on maps. Every story was recorded — the legend behind the deity, the life principle embedded in the ritual, the architecture's meaning. This wasn't desk research. It was immersive, personal fieldwork.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>Research Methods</h4>
+              <ul>
+                <li>On-ground temple visits</li>
+                <li>Interviews with priests & locals</li>
+                <li>Competitor audit (Google Maps, temple apps)</li>
+                <li>Surveys on spiritual app usage</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Key Insights</h4>
+              <ul>
+                <li>Google Maps shows <em>where</em>, never <em>why</em></li>
+                <li>Hidden temples = zero digital presence</li>
+                <li>Users want emotional resonance, not info dumps</li>
+                <li>Temple circuits are a proven pilgrimage model</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>The Gap Statement</h4>
+              <p>"There is no product that connects the emotional depth of temple heritage with the daily wellness needs of modern urban Indians."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 BUSINESS DECISIONS -->
+    <div class="t-entry" style="--node-color:#b85c38" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">03</p>
+        <p class="t-phase">Business</p>
+        <p class="t-date">Mid 2025</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● Strategy</span>
+        <h2 class="t-title">Defining the product model & revenue logic</h2>
+        <p class="t-summary">With a clear problem, the next challenge was: how does this become a sustainable product? Key decisions were made about target audience, monetisation, content strategy, and what Sriyam would deliberately NOT be.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>Target Segment</h4>
+              <ul>
+                <li>Urban Indians 25–45</li>
+                <li>Spiritually curious, not dogmatic</li>
+                <li>Goal-oriented (health, discipline, finance)</li>
+                <li>Cultural identity seekers</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Revenue Model</h4>
+              <ul>
+                <li>Freemium: 3 free temples/month</li>
+                <li>Premium: Unlimited + circuit planning</li>
+                <li>Poster downloads as soft paywall</li>
+                <li>B2B: Temple tourism boards</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>What We Chose NOT To Be</h4>
+              <ul>
+                <li>Not a travel booking app</li>
+                <li>Not a religious platform</li>
+                <li>Not another meditation app</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 DESIGN DECISIONS -->
+    <div class="t-entry" style="--node-color:#6b8f71" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">04</p>
+        <p class="t-phase">Design</p>
+        <p class="t-date">Late 2025</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● Product Design</span>
+        <h2 class="t-title">Designing the core experience loops</h2>
+        <p class="t-summary">The core design question: how do you make someone feel connected to a 1,000-year-old temple from their apartment? The answer lay in three experience loops — the goal system, the daily temple insight, and the journal + poster reward mechanic.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>Core Feature Set</h4>
+              <ul>
+                <li>Goal selection (discipline/health/finance)</li>
+                <li>Day count commitment (7/21/40/108 days)</li>
+                <li>Daily temple insight + life resonance</li>
+                <li>Journaling with prompted reflection</li>
+                <li>Downloadable temple poster reward</li>
+                <li>Circuit planner for physical visits</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Design Principles</h4>
+              <ul>
+                <li>Calm over stimulating</li>
+                <li>Depth over breadth</li>
+                <li>Ritual over habit</li>
+                <li>Story before information</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Key Decision</h4>
+              <p>Chose NOT to use push notifications. Instead, users set their own sacred time. This was informed by research showing notification fatigue in wellness apps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 CHALLENGES -->
+    <div class="t-entry" style="--node-color:#8c6b9c" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">05</p>
+        <p class="t-phase">Challenges</p>
+        <p class="t-date">Throughout</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● Pivots</span>
+        <h2 class="t-title">What broke, what changed, what got cut</h2>
+        <p class="t-summary">The honest part. Building a culturally sensitive product as a solo designer while navigating personal hardship meant several pivots — some painful, some liberating.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>Early Assumptions That Broke</h4>
+              <ul>
+                <li>"Users want all temples" → they want curated, emotional stories</li>
+                <li>"AR would be cool" → scope killed it in v1</li>
+                <li>Community feed → removed, too noisy</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Hardest Decision</h4>
+              <p>Cutting the social layer entirely. Early users loved comparing streaks. But it turned the app from sacred to competitive. Removed it to preserve the calm.</p>
+            </div>
+            <div class="d-block">
+              <h4>What It Taught Me</h4>
+              <ul>
+                <li>Constraints create clarity</li>
+                <li>Emotional products need emotional boundaries</li>
+                <li>The best UX decision is sometimes subtraction</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 OUTCOMES -->
+    <div class="t-entry" style="--node-color:#3a9db5" onclick="toggle(this)">
+      <div class="t-left">
+        <p class="t-num">06</p>
+        <p class="t-phase">Outcomes</p>
+        <p class="t-date">2025–Present</p>
+        <div class="t-dot"></div>
+      </div>
+      <div class="t-right">
+        <span class="t-tag">● Results</span>
+        <h2 class="t-title">What Sriyam became — and where it's going</h2>
+        <p class="t-summary">From a personal coping mechanism to a designed product with a defined market, a tested feature set, and a clear cultural mission. The UI is built. The stories are documented. The next step is launch.</p>
+        <div class="t-expand"><span class="t-arrow">›</span> Read more</div>
+        <div class="t-detail">
+          <div class="t-detail-inner">
+            <div class="d-block">
+              <h4>What Exists Today</h4>
+              <ul>
+                <li>Full UI built using AI - Google Antigravity (React Based)</li>
+                <li>Temple content library — 40+ temples</li>
+                <li>Life resonance framework documented</li>
+                <li>Poster design system created</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>Validated By</h4>
+              <ul>
+                <li>User interviews with 12 target users</li>
+                <li>Prototype testing — 4 rounds</li>
+                <li>Positive response on circuit planning feature</li>
+              </ul>
+            </div>
+            <div class="d-block">
+              <h4>If I Did This Again</h4>
+              <p>I'd start with content, not features. The stories are the product. The app is just the delivery mechanism. I learned this 6 months in — not at the start.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================== PROBLEM SECTION ======================== -->
+<section id="problem" class="problem-section fade-up">
+  <p class="section-eyebrow">● Problem Space</p>
+  <h2>Three gaps <em>nobody was filling</em></h2>
+  <p class="section-intro">The existing landscape of temple apps, spiritual tools, and travel platforms all missed the same thing — emotional depth. Here's what Sriyam identified.</p>
+  <div class="problem-grid">
+    <div class="problem-card" style="--card-color:#c4882a">
+      <div class="problem-icon">🗺️</div>
+      <h3>The Discovery Gap</h3>
+      <p>Google Maps shows temple locations but strips all meaning. Hidden temples — the ones with the richest stories — have zero digital presence. Pilgrims rely on word-of-mouth or deteriorating pamphlets.</p>
+    </div>
+    <div class="problem-card" style="--card-color:#b85c38">
+      <div class="problem-icon">🧠</div>
+      <h3>The Emotional Gap</h3>
+      <p>No product connects ancient temple narratives to modern daily struggles. There's no bridge between "Shiva's story of patience" and "I'm struggling with discipline this week." Sriyam builds that bridge.</p>
+    </div>
+    <div class="problem-card" style="--card-color:#6b8f71">
+      <div class="problem-icon">📿</div>
+      <h3>The Continuity Gap</h3>
+      <p>Visiting a temple is a one-time spike of meaning. There's no tool to sustain that resonance daily, build a ritual around it, or plan a purposeful circuit across multiple temples over weeks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== RESEARCH DOCS ======================== -->
+<section style="background:var(--ink);padding:100px 60px" class="fade-up">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+
+    <!-- LEFT: Context -->
+    <div>
+      <p class="section-eyebrow" style="color:var(--gold-light);border-color:rgba(232,201,122,.3)">● Research Documentation</p>
+      <h2 style="color:#f0ebe0;margin-bottom:16px">Everything I found, <em style="color:var(--gold-light)">documented.</em></h2>
+      <p style="font-size:15px;color:#7a6f60;line-height:1.75;margin-bottom:40px">This isn't a summary deck. These are the raw research documents compiled across field visits, user interviews, competitor audits, and content mapping — the full foundation that every product decision in Sriyam was built on.</p>
+
+      <!-- What's inside -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:3px;background:rgba(196,136,42,.1);border:1px solid rgba(196,136,42,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🛕</div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px">Temple Field Notes</p>
+            <p style="font-size:13px;color:#4a3f30;line-height:1.6">Stories, rituals, deity legends, and life resonance points documented across 380+ temples visited in person.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:3px;background:rgba(196,136,42,.1);border:1px solid rgba(196,136,42,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🎙️</div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px">User Interview Notes</p>
+            <p style="font-size:13px;color:#4a3f30;line-height:1.6">12 interviews with target users — affinity mapping, pain points, and key insight clusters that shaped the product direction.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:3px;background:rgba(196,136,42,.1);border:1px solid rgba(196,136,42,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🔍</div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px">Competitor Audit</p>
+            <p style="font-size:13px;color:#4a3f30;line-height:1.6">Teardowns of Google Maps, Shaivam.org, Headspace, and 6 other apps — feature mapping, UX gaps, and opportunity areas.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="width:36px;height:36px;border-radius:3px;background:rgba(196,136,42,.1);border:1px solid rgba(196,136,42,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px">🗂️</div>
+          <div>
+            <p style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px">Content & Resonance Framework</p>
+            <p style="font-size:13px;color:#4a3f30;line-height:1.6">The mapping system that connects each temple's story to a specific life goal — the intellectual backbone of the entire product.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: CTA card -->
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <div style="background:#0e0d0b;border:1px solid #2e2b24;border-radius:8px;padding:48px 40px;text-align:center;width:100%;max-width:420px;position:relative;overflow:hidden">
+
+        <!-- Decorative top line -->
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--rust))"></div>
+
+        <div style="font-size:40px;margin-bottom:20px">📋</div>
+        <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#4a3f30;margin-bottom:12px">Full Research Archive</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#f0ebe0;line-height:1.15;margin-bottom:16px">View the complete <em style="font-style:italic;color:var(--gold-light)">research docs</em></h3>
+        <p style="font-size:13px;color:#4a3f30;line-height:1.6;margin-bottom:32px">All interview notes, field documentation, competitive analysis, and the content resonance framework — compiled and organised on Jigjam.</p>
+
+        <!-- Link button -->
+        <a href="https://www.figma.com/board/zbEeyRsts4M0NFMDCUzfqb/Sriyam-Shivam-Idea-Repo?node-id=0-1&t=N7qt237EcgEzifLq-1" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#1a1611;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:14px 28px;border-radius:3px;text-decoration:none;font-weight:500;transition:background .2s;margin-bottom:16px" onmouseover="this.style.background='#e8a030'" onmouseout="this.style.background='#c4882a'">
+          Open V1 Research Docs
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="#1a1611" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+
+        <p style="font-family:'DM Mono',monospace;font-size:9px;color:#9e9c96;letter-spacing:.08em">Opens in Figjam · No login required · Version 1 </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================== USER FLOW ======================== -->
+<section id="flow" class="flow-section fade-up">
+  <p class="section-eyebrow">● Product Flow</p>
+  <h2>The core <em>user journey</em></h2>
+  <p class="section-intro">How a user goes from first open to daily ritual — the key screens and decision points in the Sriyam experience.</p>
+  <div class="flow-container">
+    <div class="flow">
+      <div class="flow-col">
+        <div class="flow-node start"><h5>Onboarding</h5><p>Set goal & days</p></div>
+        <div class="flow-node-label">Entry</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#c4882a" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node"><h5>Temple Match</h5><p>AI matches temple to goal</p></div>
+        <div class="flow-node-label">Personalisation</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#c4882a" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node"><h5>Daily Insight</h5><p>Temple story + resonance</p></div>
+        <div class="flow-node-label">Core Loop</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#c4882a" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node"><h5>Journal</h5><p>Reflect & write</p></div>
+        <div class="flow-node-label">Engagement</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#c4882a" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node decision"><h5>Day Complete?</h5><p>Streak check</p></div>
+        <div class="flow-node-label">Decision</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#c4882a" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node end-node"><h5>Poster Reward</h5><p>Download & share</p></div>
+        <div class="flow-node-label">Reward</div>
+      </div>
+      <div class="flow-connector"><svg viewBox="0 0 32 20"><path d="M0 10 L24 10 M18 4 L24 10 L18 16" stroke="#b85c38" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="flow-col">
+        <div class="flow-node" style="background:#fff8f0;border-color:#b85c38"><h5>Circuit Plan</h5><p>Physical visit planner</p></div>
+        <div class="flow-node-label">Deepen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== METRICS ======================== -->
+<section id="metrics" class="metrics-section fade-up">
+  <p class="section-eyebrow">● Business Metrics</p>
+  <h2>The numbers behind <em>the product</em></h2>
+  <p class="section-intro">Projected and validated metrics from user research, competitor benchmarking, and product assumptions — the business case for Sriyam.</p>
+  <div class="metrics-grid">
+    <div class="metric-cell">
+      <div class="metric-num">380+</div>
+      <div class="metric-label">Temples Documented</div>
+      <div class="metric-desc">With stories, resonance points & photos</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-num">12</div>
+      <div class="metric-label">User Interviews</div>
+      <div class="metric-desc">Conducted in research phase</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-num">83%</div>
+      <div class="metric-label">Felt Emotional Connection</div>
+      <div class="metric-desc">During prototype testing round 3</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-num">4</div>
+      <div class="metric-label">Prototype Rounds</div>
+      <div class="metric-desc">Iterative testing with target users</div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI BARS -->
+<section class="kpi-section fade-up">
+  <div class="metrics-grid" style="grid-template-columns:1fr 1fr;margin-top:0;background:#1a1611">
+    <div class="metric-cell" style="background:#0e0d0b">
+      <p class="section-eyebrow" style="color:#e8c97a;border-color:rgba(232,201,122,.2);margin-bottom:12px">● Product KPIs</p>
+      <p style="font-size:12px;color:#4a3f30;line-height:1.6;margin-bottom:24px;font-family:'Outfit',sans-serif">These are our post-launch targets — not current numbers. Sriyam hasn't launched yet. These are the benchmarks we're designing toward, based on comparable wellness apps in the Indian market.</p>
+      <div class="kpi-grid" style="gap:28px">
+        <div class="kpi-item">
+          <div class="kpi-header">
+            <span class="kpi-name">Daily Active Ritual</span>
+            <span class="kpi-value" style="--kpi-color:#c4882a">40%</span>
+          </div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill" style="--kpi-color:#c4882a" data-width="40"></div></div>
+          <p class="kpi-sub">Target by Month 3 after launch. This means 4 in 10 users open the app and complete their daily temple insight. Industry average for wellness apps is 20–25% — we're targeting above that because the ritual format creates a stronger daily habit than generic content feeds.</p>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-header">
+            <span class="kpi-name">Journal Completion Rate</span>
+            <span class="kpi-value" style="--kpi-color:#e8c97a">55%</span>
+          </div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill" style="--kpi-color:#e8c97a" data-width="55"></div></div>
+          <p class="kpi-sub">Target by Month 2. Of users who read the daily insight, we expect 55% to also write a journal entry. The prompted reflection questions are designed to lower the barrier — you don't start from a blank page.</p>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-header">
+            <span class="kpi-name">Poster Download Rate</span>
+            <span class="kpi-value" style="--kpi-color:#6b8f71">30%</span>
+          </div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill" style="--kpi-color:#6b8f71" data-width="30"></div></div>
+          <p class="kpi-sub">Target in Month 1, growing to 50% by Month 6. When a user finishes a goal cycle, they unlock a downloadable temple poster. If they download it, it signals real emotional investment — and drives organic word-of-mouth without any marketing spend.</p>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-header">
+            <span class="kpi-name">Premium Conversion</span>
+            <span class="kpi-value" style="--kpi-color:#b85c38">8%</span>
+          </div>
+          <div class="kpi-bar-bg"><div class="kpi-bar-fill" style="--kpi-color:#b85c38" data-width="8"></div></div>
+          <p class="kpi-sub">Conservative target for Month 1, growing to 15% by Month 6. Most freemium apps convert 2–5%. We're targeting higher because the premium paywall unlocks genuinely useful features — unlimited temples and circuit planning — not just an ad-free experience.</p>
+        </div>
+      </div>
+    </div>
+    <div class="metric-cell" style="background:#0e0d0b">
+      <p class="section-eyebrow" style="color:#e8c97a;border-color:rgba(232,201,122,.2);margin-bottom:24px">● Competitor Landscape</p>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#2e2b24;padding-bottom:12px;border-bottom:1px solid #1a1611">
+          <span>Product</span><span>Discovery</span><span>Emotional</span><span>Ritual</span>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:center">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:#4a3f30">Google Maps</span>
+          <span style="color:#c4882a;font-size:18px">✓</span><span style="color:#2e2b24;font-size:18px">✗</span><span style="color:#2e2b24;font-size:18px">✗</span>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:center">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:#4a3f30">Shaivam.org</span>
+          <span style="color:#c4882a;font-size:18px">✓</span><span style="color:#2e2b24;font-size:18px">✗</span><span style="color:#2e2b24;font-size:18px">✗</span>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:center">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:#4a3f30">Headspace</span>
+          <span style="color:#2e2b24;font-size:18px">✗</span><span style="color:#c4882a;font-size:18px">✓</span><span style="color:#c4882a;font-size:18px">✓</span>
+        </div>
+        <div style="display:grid;grid-template-columns:160px 1fr 1fr 1fr;gap:12px;align-items:center;background:rgba(196,136,42,.06);padding:10px;border-radius:3px;border:1px solid rgba(196,136,42,.2)">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;color:#c4882a;font-weight:500">Sriyam ✦</span>
+          <span style="color:#c4882a;font-size:18px">✓</span><span style="color:#c4882a;font-size:18px">✓</span><span style="color:#c4882a;font-size:18px">✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== DESIGN DECISIONS ======================== -->
+<section id="design" class="design-section fade-up">
+  <p class="section-eyebrow">● Design Decisions</p>
+  <h2>Why it looks and feels <em>the way it does</em></h2>
+  <p class="section-intro">Every design choice in Sriyam was intentional — rooted in the emotional brief, validated by user feedback, and informed by cultural sensitivity.</p>
+  <div class="design-grid">
+    <div class="design-card" style="--card-accent:#c4882a">
+      <div class="design-num">01</div>
+      <div class="why">Design Decision</div>
+      <h3>No push notifications — ever</h3>
+      <p>Users set their own sacred time. Research showed notification fatigue breaks the ritual quality of spiritual apps. Sriyam respects the user's intention, not the algorithm's agenda.</p>
+    </div>
+    <div class="design-card" style="--card-accent:#b85c38">
+      <div class="design-num">02</div>
+      <div class="why">Design Decision</div>
+      <h3>Goal-first, not temple-first</h3>
+      <p>Counterintuitively, we don't start with "pick a temple." We start with "what are you working on in life?" This makes the product emotionally relevant before it becomes culturally interesting.</p>
+    </div>
+    <div class="design-card" style="--card-accent:#6b8f71">
+      <div class="design-num">03</div>
+      <div class="why">Design Decision</div>
+      <h3>Poster as reward, not feature</h3>
+      <p>The downloadable poster was almost a subscription feature. Testing showed it works better as an earned reward — it creates completion motivation and organic social sharing without any push.</p>
+    </div>
+    <div class="design-card" style="--card-accent:#8c6b9c">
+      <div class="design-num">04</div>
+      <div class="why">Design Decision</div>
+      <h3>Calm visual language over temple maximalism</h3>
+      <p>Early mockups used traditional temple colours — loud, busy, ornate. Testing showed users wanted the app to feel like stepping into a temple, not looking at one. Muted tones, generous space, deliberate calm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== CHALLENGES ======================== -->
+<section class="challenges-section fade-up">
+  <p class="section-eyebrow">● Challenges & Pivots</p>
+  <h2>The honest <em>part</em></h2>
+  <p class="section-intro">What broke, what got cut, and what forced a rethink. This is where the real learning lives.</p>
+  <div class="challenge-list">
+    <div class="challenge-item">
+      <div class="challenge-num">01</div>
+      <div class="challenge-content">
+        <div class="pivot">→ Pivot</div>
+        <h3>Community feed was removed entirely</h3>
+        <p>Early users loved comparing streaks and sharing journal entries. But it turned a personal, sacred space into a performance arena. The app's emotional safety collapsed. We removed the social layer completely and user satisfaction scores jumped in the next round of testing.</p>
+      </div>
+    </div>
+    <div class="challenge-item">
+      <div class="challenge-num">02</div>
+      <div class="challenge-content">
+        <div class="pivot">→ Scope Cut</div>
+        <h3>AR temple overlay was deferred to v2</h3>
+        <p>The original vision included an AR layer where users could point their phone at any temple and see stories overlaid in real-time. Technically ambitious, beautifully aligned with the mission. But as a solo designer, it was scope that would have killed the launch. It's still on the roadmap.</p>
+      </div>
+    </div>
+    <div class="challenge-item">
+      <div class="challenge-num">03</div>
+      <div class="challenge-content">
+        <div class="pivot">→ Assumption Broken</div>
+        <h3>"More temples = better" was wrong</h3>
+        <p>The first prototype had 200+ temples to explore freely. Users felt overwhelmed and disengaged within 3 minutes. The pivot to a curated, goal-matched single daily temple completely changed retention signals. Constraint was the feature.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== OUTCOME ======================== -->
+<section id="outcome" class="outcome-section fade-up">
+  <p class="section-eyebrow">● Final Outcome</p>
+  <h2>What <em>Sriyam</em> is today</h2>
+  <blockquote class="outcome-quote">"I started this project to heal myself. I ended up building something I believe can help thousands of people feel at home in their own culture again."</blockquote>
+  <div class="outcome-grid">
+    <div class="outcome-card">
+      <div class="outcome-icon">📱</div>
+      <h3>MVP UI Built</h3>
+      <p>Complete AI Generated prototype, initially build with Google Antigravity - ready for handoff and development.</p>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">🛕</div>
+      <h3>Content Library</h3>
+      <p>380+ temples documented with stories, resonance points, and original photography.</p>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">🗺️</div>
+      <h3>Circuit Framework</h3>
+      <p>A planner system for multi-temple journeys mapped to 7/21/48 day goal programs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Sridhar Gururajan <span>· Founder & Designer</span></div>
+    <div class="footer-role">UX / Product Design · Sriyam Case Study · 2025</div>
+  </div>
+  <div class="footer-right">
+    <p>Built with intent. Rooted in culture.</p>
+    <p style="margin-top:4px;color:#4a3f30"><a href="https://www.figma.com/proto/yUjBtFZmLMiFRDG461vpeA/Sridhar_Portfolio?node-id=173-6621&t=dQgzQ8zF8LRxtbU2-1" target="_blank" style="color:#b2b1b0">Portfolio</a> · +91 8870 30 8265 · <a href="https://www.linkedin.com/in/sridhar-gururajan" target="_blank" style="color:#b2b1b0">LinkedIn</a></p>
+  </div>
+</footer>
+
+<script>  
+// Timeline toggle
+function toggle(el){
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.t-entry.open').forEach(e=>e.classList.remove('open'));
+  if(!wasOpen) el.classList.add('open');
+}
+
+// Scroll progress
+window.addEventListener('scroll',()=>{
+  const s = window.scrollY;
+  const d = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.width = (s/d*100)+'%';
+  document.getElementById('nav').classList.toggle('scrolled', s > 40);
+});
+
+// Fade-up observer
+const obs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// KPI bars animate on scroll
+const kpiObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.kpi-bar-fill').forEach(bar=>{
+        bar.style.width = bar.dataset.width+'%';
+      });
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.kpi-section').forEach(s=>kpiObs.observe(s));
+</script>
+</body>
+</html>
